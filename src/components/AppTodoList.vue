@@ -1,18 +1,27 @@
 <template>
   <ul class="todo-list">
-    <AppTodoItem />
-    <AppTodoItem />
-    <AppTodoItem />
+    <AppTodoItem v-for="todo in todos" :key="todo.id" :todo="todo" />
   </ul>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, computed, Ref } from 'vue';
+import { useStore } from 'vuex';
+import { Todo } from '@/types/Todo';
 import AppTodoItem from './AppTodoItem.vue';
 
 export default defineComponent({
   components: {
     AppTodoItem,
+  },
+  setup() {
+    const store = useStore();
+
+    const todos: Ref<Todo[]> = computed(() => store.getters.todos);
+
+    return {
+      todos,
+    };
   },
 });
 </script>
