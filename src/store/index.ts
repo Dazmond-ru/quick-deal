@@ -1,9 +1,11 @@
 import { createStore } from 'vuex';
 import { Todo } from '@/types/Todo';
+import { Stats } from '@/types/Stats';
 import { Filter } from '@/types/Filter';
 
 interface State {
   todos: Todo[];
+  stats: Stats;
   activeFilter: Filter;
 }
 
@@ -13,6 +15,10 @@ export const store = createStore<State>({
       { id: 0, text: 'Первая задача', completed: true },
       { id: 1, text: 'Вторая задача', completed: false },
     ],
+    stats: {
+      active: 0,
+      done: 0,
+    },
     activeFilter: 'Все',
   },
   mutations: {
@@ -55,6 +61,12 @@ export const store = createStore<State>({
         default:
           return state.todos;
       }
+    },
+    stats: (_state, getters) => {
+      const active = getters.activeTodos.length;
+      const done = getters.doneTodos.length;
+
+      return { active, done };
     },
   },
 });
