@@ -17,7 +17,7 @@ export default defineComponent({
   setup() {
     const store = useStore();
 
-    const todos: Ref<Todo[]> = computed(() => store.getters.todos);
+    const todos: Ref<Todo[]> = computed(() => store.getters.filteredTodos);
 
     return {
       todos,

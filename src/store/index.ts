@@ -36,10 +36,26 @@ export const store = createStore<State>({
         todo.text = text;
       }
     },
+    setFilter(state: State, filter: Filter) {
+      state.activeFilter = filter;
+    },
   },
   getters: {
-    todos: (state) => state.todos,
     activeFilter: (state) => state.activeFilter,
+
+    activeTodos: (state) => state.todos.filter((todo) => !todo.completed),
+    doneTodos: (state) => state.todos.filter((todo) => todo.completed),
+    filteredTodos: (state, getters) => {
+      switch (state.activeFilter) {
+        case 'Активные':
+          return getters.activeTodos;
+        case 'Выполненные':
+          return getters.doneTodos;
+        case 'Все':
+        default:
+          return state.todos;
+      }
+    },
   },
 });
 
