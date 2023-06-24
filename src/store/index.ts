@@ -12,6 +12,9 @@ export const store = createStore<State>({
       { id: 1, text: 'Вторая задача', completed: false },
     ],
   },
+  getters: {
+    todos: (state) => state.todos,
+  },
 });
 
 export default store;
