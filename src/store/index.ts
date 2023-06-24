@@ -2,8 +2,9 @@ import { createStore } from 'vuex';
 import { Todo } from '@/types/Todo';
 import { Stats } from '@/types/Stats';
 import { Filter } from '@/types/Filter';
+import localStoragePlugin from '@/plugins/localStoragePlugin';
 
-interface State {
+export interface State {
   todos: Todo[];
   stats: Stats;
   activeFilter: Filter;
@@ -69,6 +70,7 @@ export const store = createStore<State>({
       return { active, done };
     },
   },
+  plugins: [localStoragePlugin],
 });
 
 export default store;
